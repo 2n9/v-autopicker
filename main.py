@@ -25,6 +25,8 @@ def registerAgents():
     global ag_raze 
     global ag_reyna
 
+    global agents
+
     ag_kayo = agentData([[586, 887], [661, 962]], "source/agent/kayo.png")
     ag_astra = agentData([[670, 887], [745, 962]], "source/agent/astra.png")
     ag_viper = agentData([[754, 887], [829, 962]], "source/agent/viper.png")
@@ -43,6 +45,9 @@ def registerAgents():
     ag_raze = agentData([[1090, 971], [1165, 1046]], "source/agent/raze.png")
     ag_reyna = agentData([[1174, 971], [1249, 1046]], "source/agent/reyna.png")
 
+    # all agent in agents
+    agents = [ag_kayo, ag_astra, ag_viper, ag_omen, ag_killjoy, ag_cypher, ag_jett, ag_skye, ag_sage, ag_sova, ag_chamber, ag_phoenix, ag_breach, ag_brimstone, ag_yoru, ag_raze, ag_reyna]
+
 
 def testrun(model):
     img = cv2.imread("result/images/0.png")
@@ -52,11 +57,16 @@ def testrun(model):
     result.display(pprint=True)
     result.display(show=True)
 
-def cut(screenshot):
+def cut():
     # take screenshot
+    global screenshot
     screenshot = pyautogui.screenshot(0,0,1920,1080)
+    ranges = []
+    for agent in agents:
+        fix_x, fix_y = [(agent.pos[0][1] - agent.pos[0][0]), (agent.pos[1][1] - agent.pos[1][0])]
+        ranges.append((agent.pos[0][0], agent.pos[1][0], fix_x, fix_y))
     
-    
+    return ranges
 
 
 def main():
@@ -69,6 +79,7 @@ def main():
 
     # test run
     testrun(model)
+    regions = cut()
 
 
 # call main
