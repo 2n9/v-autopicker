@@ -65,7 +65,7 @@ def cut():
     for agent in agents:
         fix_x, fix_y = [(agent.pos[0][1] - agent.pos[0][0]), (agent.pos[1][1] - agent.pos[1][0])]
         ranges.append((agent.pos[0][0], agent.pos[1][0], fix_x, fix_y))
-    
+   
     return ranges
 
 
@@ -76,7 +76,6 @@ def main():
     global model
     model = torch.hub.load("ultralytics/yolov5", "custom", path="model/best.pt")
     model.conf = 0.15
-
     # test run
     testrun(model)
     regions = cut()
