@@ -57,15 +57,21 @@ def testrun(model):
     result.display(pprint=True)
     result.display(show=True)
 
+def isMatch(img):
+    # check match img
+    for i in range(len(regions)):
+        if img[regions[i][0]:regions[i][1], regions[i][2]:regions[i][3]] is not None:
+            return i
+    return -1
+
 def cut():
     # take screenshot
     global screenshot
-    screenshot = pyautogui.screenshot(0,0,1920,1080)
+    screenshot = pyautogui.screenshot()
     ranges = []
     for agent in agents:
         fix_x, fix_y = [(agent.pos[0][1] - agent.pos[0][0]), (agent.pos[1][1] - agent.pos[1][0])]
         ranges.append((agent.pos[0][0], agent.pos[1][0], fix_x, fix_y))
-   
     return ranges
 
 
@@ -76,8 +82,13 @@ def main():
     global model
     model = torch.hub.load("ultralytics/yolov5", "custom", path="model/best.pt")
     model.conf = 0.15
+
     # test run
-    testrun(model)
+    # testrun(model)
+
+    # register agents
+    registerAgents()
+
     regions = cut()
 
 
