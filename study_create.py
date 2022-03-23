@@ -94,6 +94,10 @@ for k, filepath in enumerate(filepaths):
     dic[base] = k
     arr.append(base)
 
+"""
+num : image count
+iters : 
+"""
 num = 5000
 iters = 40
 for i in range(num):
@@ -164,4 +168,4 @@ for i in range(num):
     txt = "result/labels/" + str(i) + ".txt"
     df.to_csv(txt, header=None, index=None, sep=" ")
 
-    print(str(i) + ".png is done")
+    print(str(i) + ".png done")
